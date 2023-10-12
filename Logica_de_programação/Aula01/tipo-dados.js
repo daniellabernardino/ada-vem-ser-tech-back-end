@@ -16,7 +16,7 @@ console.log("Cliente 1: ", client)
 // a atribuição é feita por referência, atribui endereço de memória 
 // let client2 = client 
 
-//atribuição por valor (spread operator), atribuui o valor um por um do outro objeto
+//atribuição por valor (spread operator), atribui o valor um por um do outro objeto
 // ex: 
 let client2 = { ...client }
 
@@ -29,3 +29,4 @@ console.log("Cliente 2: ", client2)
 //Desestruturação, consegue segregar carc de um objeto pra trabalhar de forma mais simples
 let {address} = client
 console.log(address)
+
