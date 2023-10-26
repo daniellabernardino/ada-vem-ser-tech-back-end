@@ -1,13 +1,26 @@
 var clients = [
-  { email: "Daniella@email.com", receiveEmail: true },
-  { email: "Jõa@email.com", receiveEmail: false },
-  { email: "Maria@email.com", receiveEmail: true },
-  { email: "Breno@email.com", receiveEmail: false }
+  { email: "Daniella@email.com", receiveEmail: true, dateOfVist:"2023-09-15" },
+  { email: "Jõa@email.com", receiveEmail: false, dateOfVist:"2023-09-15" },
+  { email: "Maria@email.com", receiveEmail: true, dateOfVist: "2023-05-15" },
+  { email: "Breno@email.com", receiveEmail: false, dateOfVist: "2023-09-15" },
+  { email: "Jose@email.com", receiveEmail: true, dateOfVist: "2023-02-15" },
+  { email: "Jose@email.com", receiveEmail: false, dateOfVist: "2023-09-15" }
 ]
 
 const currentDayInTheWeek = () => {
   const currentDate = new Date()
   return currentDate.getDay()
+}
+
+const lastVist = (client) =>{
+  const currentDate = new Date()
+  const lastMonth = currentDate.getMonth() 
+
+  const dateOfVist = client.dateOfVist
+  const visitDate = new Date(dateOfVist) 
+  const monthVisit = visitDate.getMonth() + 1
+ 
+  return monthVisit === lastMonth
 }
 
 const createEmailBody = () => {
@@ -33,8 +46,8 @@ const createEmailBody = () => {
     -> Na compra de um carro elétrico, você ganha um desconto de 50% na conta de luz por um ano.`
 
   const emailBody = `
-  ${newVehicles}\n\n
-  ${bestSellers}\n\n
+  ${newVehicles}
+  ${bestSellers}
   ${conditionsOfPurchase}`
   return emailBody
 }
@@ -42,11 +55,11 @@ const createEmailBody = () => {
 const sendEmailToClientes = (clients)=> {
   const enviarEmail = require('./envia-email.js')
 
-  const today = currentDayInTheWeek()
+  const today = 1
 
   if (today === 1) { 
     for (const client of clients) {
-      if (client.receiveEmail) {
+      if (client.receiveEmail && lastVist(client)) {
         
         const emailBody = createEmailBody()        
         
@@ -64,6 +77,7 @@ const sendEmailToClientes = (clients)=> {
   }
 
 }
+
 
 sendEmailToClientes(clients)
 
