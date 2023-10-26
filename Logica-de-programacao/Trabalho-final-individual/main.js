@@ -1,7 +1,12 @@
+const enviarEmail = require('./envia-email.js')
+const emailBody = require('./create-email-body.js')
+const lastVisit = require('./last-visit.js')
+
+
 var clients = [
-  { email: "Daniella@email.com", receiveEmail: true, dateOfVist:"2023-09-15" },
-  { email: "Jõa@email.com", receiveEmail: false, dateOfVist:"2023-09-15" },
-  { email: "Maria@email.com", receiveEmail: true, dateOfVist: "2023-05-15" },
+  { email: "Daniella@email.com", receiveEmail: true, dateOfVist: "2023-09-15" },
+  { email: "Jõa@email.com", receiveEmail: false, dateOfVist: "2023-09-15" },
+  { email: "Maria@email.com", receiveEmail: true, dateOfVist: "2023-09-15" },
   { email: "Breno@email.com", receiveEmail: false, dateOfVist: "2023-09-15" },
   { email: "Jose@email.com", receiveEmail: true, dateOfVist: "2023-02-15" },
   { email: "Jose@email.com", receiveEmail: false, dateOfVist: "2023-09-15" }
@@ -12,59 +17,20 @@ const currentDayInTheWeek = () => {
   return currentDate.getDay()
 }
 
-const lastVist = (client) =>{
-  const currentDate = new Date()
-  const lastMonth = currentDate.getMonth() 
+const sendEmailToClientes = (clients) => {
 
-  const dateOfVist = client.dateOfVist
-  const visitDate = new Date(dateOfVist) 
-  const monthVisit = visitDate.getMonth() + 1
- 
-  return monthVisit === lastMonth
-}
+  const today = currentDayInTheWeek()
 
-const createEmailBody = () => {
-  const newVehicles =
-    `Confira nossos novos veículos:
-      -> BMW
-      -> Land Rover
-      -> Ferrari
-      -> DeTomasco
-      -> Lamborghini`
-
-  const bestSellers =
-    `Veja os modelos mais vendidos: 
-    -> Celta
-    -> GOL
-    -> UNO
-    -> Palio
-    -> Peugeot`
-
-  const conditionsOfPurchase =
-    `Condições especiais para aquisição!!
-    -> Garantia vitalícia, para que você possa dirigir com tranquilidade. 
-    -> Na compra de um carro elétrico, você ganha um desconto de 50% na conta de luz por um ano.`
-
-  const emailBody = `
-  ${newVehicles}
-  ${bestSellers}
-  ${conditionsOfPurchase}`
-  return emailBody
-}
-
-const sendEmailToClientes = (clients)=> {
-  const enviarEmail = require('./envia-email.js')
-
-  const today = 1
-
-  if (today === 1) { 
+  if (today === 1) {
     for (const client of clients) {
-      if (client.receiveEmail && lastVist(client)) {
-        
-        const emailBody = createEmailBody()        
-        
-        const result = enviarEmail(client.email, "Novos Veículos em Destaque: Confira as Últimas Novidades na CarStore", emailBody)
-        
+      if (client.receiveEmail && lastVisit(client)) {
+
+        const result = enviarEmail(
+          client.email,
+          "Novos Veículos em Destaque: Confira as Últimas Novidades na CarStore",
+          emailBody()
+        )
+
         if (result.status === "Sucess") {
           console.log(`E-mail enviado para ${client.email}: ${result.message}`)
         } else {
