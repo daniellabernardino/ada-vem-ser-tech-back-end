@@ -9,4 +9,4 @@ const lastVisit = (client) => {
   return monthVisit === lastMonth
 }
 
-module.exports = lastVisit;
+module.exports = lastVisit

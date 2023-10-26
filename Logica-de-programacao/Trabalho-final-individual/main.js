@@ -44,6 +44,5 @@ const sendEmailToClientes = (clients) => {
 
 }
 
-
 sendEmailToClientes(clients)
 

@@ -27,4 +27,4 @@ const createEmailBody = () => {
   return emailBody
 }
 
-module.exports = createEmailBody;
+module.exports = createEmailBody
