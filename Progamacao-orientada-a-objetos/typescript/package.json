@@ -1,0 +1,13 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "Projeto TS ",
+  "scripts": {
+    "start": "tsc && node  ./dist/index.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.9.2",
+    "typescript": "5.2.2"
+  }
+}
